@@ -17,23 +17,23 @@ import retrofit2.Response
 class MainViewModel @ViewModelInject constructor(
     private val repository: Repository,
     application: Application
-    ): AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
         var recipsResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
-        fun getRecipes(queris: Map<String,String>) = viewModelScope.launch {
+        fun getRecipes(queris: Map<String, String>) = viewModelScope.launch {
             getRecipesSaveCall(queris)
         }
 
         private suspend fun getRecipesSaveCall(queris: Map<String, String>) {
             recipsResponse.value = NetworkResult.Loading()
-            if (hasInternetConnection()){
-                  try {
-                      var response = repository.remote.getRecepies(queris)
-                      recipsResponse.value = handleFoodRecipesRespon(response)
-                  } catch (e:Exception) {
-                      recipsResponse.value = NetworkResult.Error("Recipes Not Found")
-                  }
+            if (hasInternetConnection()) {
+                try {
+                    var response = repository.remote.getRecepies(queris)
+                    recipsResponse.value = handleFoodRecipesRespon(response)
+                    } catch (e: Exception) {
+                    recipsResponse.value = NetworkResult.Error("Recipes Not Found")
+                    }
             } else {
                 recipsResponse.value = NetworkResult.Error("No Internet Connection")
             }

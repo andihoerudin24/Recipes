@@ -1,8 +1,8 @@
 package com.example.food.network
 
 import com.example.food.recipes.model.FoodRecipe
-import retrofit2.Response
 import javax.inject.Inject
+import retrofit2.Response
 
 class RemoteDataSource @Inject constructor(
     private val foodRecipeApi: Api
