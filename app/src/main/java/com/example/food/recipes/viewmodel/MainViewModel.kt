@@ -1,9 +1,10 @@
-package com.example.food
+package com.example.food.recipes.viewmodel
 
 import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -26,15 +27,19 @@ class MainViewModel @ViewModelInject constructor(
         }
 
         private suspend fun getRecipesSaveCall(queris: Map<String, String>) {
+            Log.d("queris", queris.toString())
             recipsResponse.value = NetworkResult.Loading()
             if (hasInternetConnection()) {
+                Log.d("internet", "internet ok")
                 try {
                     var response = repository.remote.getRecepies(queris)
+                    Log.d("responseresponse", response.toString())
                     recipsResponse.value = handleFoodRecipesRespon(response)
                     } catch (e: Exception) {
                     recipsResponse.value = NetworkResult.Error("Recipes Not Found")
                     }
             } else {
+                Log.d("internets", "no ok")
                 recipsResponse.value = NetworkResult.Error("No Internet Connection")
             }
         }
