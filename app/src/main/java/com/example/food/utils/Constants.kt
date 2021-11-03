@@ -14,5 +14,14 @@ class Constants {
 
         const val DATABASE_NAME = "recipes_database"
         const val RECIPES_TABLE = "recipes_table"
+
+        const val PREFERENCES_NAME = "foody_preferences"
+        const val DEFAULT_RECIPES_NUMBER = "50"
+        const val DEFAULT_MEAL_TYPE = "main course"
+        const val DETAULT_DIET_TYPE = "gluten free"
+        const val PREFERENCES_MEALTYPE = "mealType"
+        const val PREFERENCES_MEALTYPEID = "mealTypeId"
+        const val PREFERENCES_DIETTYPE = "dietType"
+        const val PREFERENCES_DIETTYPEID = "dietTypeId"
         }
 }
