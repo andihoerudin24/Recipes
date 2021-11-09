@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import com.example.food.R
 import com.example.food.recipes.viewmodel.RecipesViewModel
 import com.example.food.utils.Constants.Companion.DEFAULT_MEAL_TYPE
@@ -59,6 +60,9 @@ class RecipiesBottomSheet : BottomSheetDialogFragment() {
                 dietTypeChip,
                 dietTypeChipId
             )
+            val action =
+                RecipiesBottomSheetDirections.actionRecipiesBottomSheetToRecipesFragment2(true)
+            findNavController().navigate(action)
         }
         return mView
     }
