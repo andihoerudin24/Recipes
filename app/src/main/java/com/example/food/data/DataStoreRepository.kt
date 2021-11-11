@@ -9,6 +9,7 @@ import androidx.datastore.preferences.emptyPreferences
 import androidx.datastore.preferences.preferencesKey
 import com.example.food.utils.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.example.food.utils.Constants.Companion.DETAULT_DIET_TYPE
+import com.example.food.utils.Constants.Companion.PREFERENCES_BACK_ONLINE
 import com.example.food.utils.Constants.Companion.PREFERENCES_DIETTYPE
 import com.example.food.utils.Constants.Companion.PREFERENCES_DIETTYPEID
 import com.example.food.utils.Constants.Companion.PREFERENCES_MEALTYPE
@@ -30,6 +31,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
         val selectedMealTypeId = preferencesKey<Int>(PREFERENCES_MEALTYPEID)
         val selectedDietType = preferencesKey<String>(PREFERENCES_DIETTYPE)
         val selectedDietTypeId = preferencesKey<Int>(PREFERENCES_DIETTYPEID)
+        val backOnline = preferencesKey<Boolean>(PREFERENCES_BACK_ONLINE)
     }
 
     private val dataStore: DataStore<Preferences> = context.createDataStore(
@@ -42,6 +44,12 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             it[PreferenceKeys.selectedMealTypeId] = mealTypeId
             it[PreferenceKeys.selectedDietType] = dietType
             it[PreferenceKeys.selectedDietTypeId] = dietTypeId
+        }
+    }
+
+    suspend fun saveBackOnline(backOnline: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferenceKeys.backOnline] = backOnline
         }
     }
 
@@ -65,6 +73,19 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
                 selectedDietTypeId
             )
         }
+
+    val readBackOnline: Flow<Boolean> = dataStore.data
+        .catch { exception ->
+            if (exception is IOException) {
+                emit(emptyPreferences())
+                } else {
+                throw exception
+                }
+            }
+        .map { preferences ->
+            val backOnline = preferences[PreferenceKeys.backOnline] ?: false
+                backOnline
+            }
 }
 
 data class MealAndDietType(val selectedMealType: String, val selectedMealTypeId: Int, val selectedDietType: String, val selectedDietTypeId: Int)

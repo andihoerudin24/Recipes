@@ -23,5 +23,6 @@ class Constants {
         const val PREFERENCES_MEALTYPEID = "mealTypeId"
         const val PREFERENCES_DIETTYPE = "dietType"
         const val PREFERENCES_DIETTYPEID = "dietTypeId"
+        const val PREFERENCES_BACK_ONLINE = "backOnline"
         }
 }
