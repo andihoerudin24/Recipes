@@ -40,9 +40,14 @@ class MainViewModel @ViewModelInject constructor(
 
         /** Retrofit Database */
         var recipsResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
+        var serachRecipesResponse: MutableLiveData<NetworkResult<FoodRecipe>> = MutableLiveData()
 
         fun getRecipes(queris: Map<String, String>) = viewModelScope.launch {
             getRecipesSaveCall(queris)
+        }
+
+        fun searchRecipes(searcQuery: Map<String, String>) = viewModelScope.launch {
+            searchRecipesSafeCall(searcQuery)
         }
 
         private suspend fun getRecipesSaveCall(queris: Map<String, String>) {
@@ -66,6 +71,24 @@ class MainViewModel @ViewModelInject constructor(
                 recipsResponse.value = NetworkResult.Error("No Internet Connection")
             }
         }
+
+    private suspend fun searchRecipesSafeCall(searcQuery: Map<String, String>) {
+        Log.d("searcQuery", searcQuery.toString())
+        serachRecipesResponse.value = NetworkResult.Loading()
+        if (hasInternetConnection()) {
+            Log.d("internet", "internet ok")
+            try {
+                var response = repository.remote.searchRecipes(searcQuery)
+                Log.d("searcQueryresponseresponse", response.toString())
+                serachRecipesResponse.value = handleFoodRecipesRespon(response)
+            } catch (e: Exception) {
+                serachRecipesResponse.value = NetworkResult.Error("Recipes Not Found")
+            }
+        } else {
+            Log.d("internets", "no ok")
+            serachRecipesResponse.value = NetworkResult.Error("No Internet Connection")
+        }
+    }
 
     private fun handleFoodRecipesRespon(response: Response<FoodRecipe>): NetworkResult<FoodRecipe>? {
             when {
