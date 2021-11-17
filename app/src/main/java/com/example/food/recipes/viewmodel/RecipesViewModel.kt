@@ -1,6 +1,7 @@
 package com.example.food.recipes.viewmodel
 
 import android.app.Application
+import android.util.Log
 import android.widget.Toast
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.AndroidViewModel
@@ -8,9 +9,15 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.food.data.DataStoreRepository
 import com.example.food.utils.Constants
+import com.example.food.utils.Constants.Companion.API_KEY
 import com.example.food.utils.Constants.Companion.DEFAULT_MEAL_TYPE
 import com.example.food.utils.Constants.Companion.DEFAULT_RECIPES_NUMBER
 import com.example.food.utils.Constants.Companion.DETAULT_DIET_TYPE
+import com.example.food.utils.Constants.Companion.QUERY_ADD_RECIPES_INFORMATION
+import com.example.food.utils.Constants.Companion.QUERY_API_KEY
+import com.example.food.utils.Constants.Companion.QUERY_FILLINGRIDEINTS
+import com.example.food.utils.Constants.Companion.QUERY_NUMBER
+import com.example.food.utils.Constants.Companion.QUERY_SEARCH
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -43,12 +50,23 @@ class RecipesViewModel @ViewModelInject constructor (application: Application, p
                 dietType = value.selectedDietType
             }
         }
-        queries[Constants.QUERY_API_KEY] = Constants.API_KEY
-        queries[Constants.QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
+        queries[QUERY_API_KEY] = API_KEY
+        queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
         queries[Constants.QUERY_TYPE] = mealType
         queries[Constants.QUERY_DIET] = dietType
-        queries[Constants.QUERY_ADD_RECIPES_INFORMATION] = "true"
-        queries[Constants.QUERY_FILLINGRIDEINTS] = "true"
+        queries[QUERY_ADD_RECIPES_INFORMATION] = "true"
+        queries[QUERY_FILLINGRIDEINTS] = "true"
+        return queries
+    }
+
+    fun applySearchQuery(searchQuery: String): HashMap<String, String> {
+        val queries: HashMap<String, String> = HashMap()
+        Log.d("pencarian", searchQuery)
+        queries[QUERY_SEARCH] = searchQuery
+        queries[QUERY_NUMBER] = DEFAULT_RECIPES_NUMBER
+        queries[QUERY_API_KEY] = API_KEY
+        queries[QUERY_ADD_RECIPES_INFORMATION] = "true"
+        queries[QUERY_FILLINGRIDEINTS] = "true"
         return queries
     }
 
