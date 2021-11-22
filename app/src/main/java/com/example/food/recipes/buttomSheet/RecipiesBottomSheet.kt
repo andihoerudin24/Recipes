@@ -43,13 +43,13 @@ class RecipiesBottomSheet : BottomSheetDialogFragment() {
         })
         mView.mealType_chipGroup.setOnCheckedChangeListener { group, selectedChipId ->
             val chip = group.findViewById<Chip>(selectedChipId)
-            val selectedMealType = chip.text.toString().lowercase(Locale.ROOT)
+            val selectedMealType = chip.text.toString().toLowerCase(Locale.ROOT)
             mealTypechip = selectedMealType
             mealTypeChipId = selectedChipId
         }
         mView.dietType_chipGroup.setOnCheckedChangeListener { group, selectedChipId ->
             val chip = group.findViewById<Chip>(selectedChipId)
-            val selectedDietType = chip.text.toString().lowercase(Locale.ROOT)
+            val selectedDietType = chip.text.toString().toLowerCase(Locale.ROOT)
             dietTypeChip = selectedDietType
             dietTypeChipId = selectedChipId
         }
