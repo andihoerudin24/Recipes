@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/gradient_overlay.xml" value="0.24537037037037038" />
+        <entry key="app/src/main/res/drawable/ic_checkmark.xml" value="0.24537037037037038" />
         <entry key="app/src/main/res/drawable/ic_clock.xml" value="0.3260416666666667" />
         <entry key="app/src/main/res/drawable/ic_error_placeholder.xml" value="0.22407407407407406" />
         <entry key="app/src/main/res/drawable/ic_heart.xml" value="0.18385416666666668" />
@@ -11,6 +13,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.125" />
         <entry key="app/src/main/res/layout/fragment_favorite_recipes.xml" value="0.11" />
         <entry key="app/src/main/res/layout/fragment_food_joke.xml" value="0.2028985507246377" />
+        <entry key="app/src/main/res/layout/fragment_overview.xml" value="0.20182648401826483" />
         <entry key="app/src/main/res/layout/fragment_recepies_bottom_sheet.xml" value="0.11" />
         <entry key="app/src/main/res/layout/fragment_recipes.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_recipies_bottom_sheet.xml" value="0.2033514492753623" />
